@@ -1,0 +1,82 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Ticket Market</title>
+    @Styles.Render("~/Content/css")
+    @Styles.Render("~/Content/Site.css")
+    @Scripts.Render("~/bundles/modernizr")
+
+</head>
+<body>
+    <div class="navbar navbar-fixed-top" >
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("TicketBuyShop", "Index", "Product", new { area = "" }, new { @class = "navbar-brand " })
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Home", "Index", "Product", new { area = "" }, new { @id = "light", @style = "color:blue;" })</li>
+                    <li><a href="#" id="light" data-toggle="modal" data-target="#myModal" style="color:violet; font-size:25px;font-family:Buxton Sketch">About</a></li>
+                    <li>@Html.ActionLink("Profile", "Profile", "User", new { area = "" }, new { @id = "light", @style = "color:green;" })</li>
+                    <li>@Html.ActionLink("Logout", "Login", "User", new { area = "" }, new { @id = "light", @style = "color:brown;" })</li>
+                    
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">TicketBuyshop</h4>
+                </div>
+                <div class="modal-body">
+                    <pre>
+                  </pre>
+                </div>
+                @*<div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>*@
+            </div>
+
+        </div>
+    </div>
+    <div class="container">
+        @RenderBody()
+        <hr />
+        <footer class="text-center">
+            <p >&copy; @DateTime.Now.Year - Ticket Market</p>
+        </footer>
+    </div>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+    <script>
+        $(document).ready(function () {
+            $('[data-toggle="popover"]').popover();
+        });
+
+
+        $(window).scroll(function () {
+            $(".slideanim").each(function () {
+                var pos = $(this).offset().top;
+
+                var winTop = $(window).scrollTop();
+                if (pos < winTop + 60) {
+                    $(this).addClass("slide");
+                }
+            });
+        });
+
+
+    </script>
+</body>
+</html>

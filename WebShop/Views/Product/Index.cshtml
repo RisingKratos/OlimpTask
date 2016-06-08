@@ -1,0 +1,75 @@
+﻿@model PagedList.IPagedList<WebShop.Models.Product>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+@{
+    ViewBag.Title = "Products";
+}
+
+
+<h2 class="thumbnail" style="background-color:blue;opacity:0.3;text-align:center;color:white">Products</h2>
+<div class="thumbnail" style="background-color:ghostwhite;">
+    <div style="align-items:center">
+        <div id="btl">
+        </div>
+        @Html.ActionLink("Create New", "Create", new { area = "" }, new { @class = "btn btn-default", @style = "margin-left:500px;margin-right:500px;padding-left:30px;padding-right:25px" })
+    </div>
+    <bk>
+        <a data-toggle="collapse" data-target="#demo" style="margin-left:520px;margin-right:510px;margin-top:5px;padding-left:20px;padding-right:25px;text-align:center" class="btn btn-default"> Search</a>
+        <div id="demo" class="collapse">
+            <div id="divInSearch" style="margin-left: 400px;margin-top:10px">
+                @using (Html.BeginForm("Index", "Product", FormMethod.Get))
+                {<p>
+                    Find by name:@Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
+                    <input type="submit" value="Search" margin-top:10px" />
+                </p>
+                }
+            </div>
+        </div>
+        <bk>
+            <div class="container">
+                <div class="row slideanim slide" style="margin-top:20px;">
+                    @foreach (var item in Model)
+                    {
+                        <div class="col-md-3" style="border: 1px outset black">
+
+                            @Html.ActionLink("Details", "Details", new { id = item.ProductID }, new { @style = "margin-right:290px;margin-top:10px", @class = "btn btn-default" })
+                            <p>Title: @Html.DisplayFor(modelItem => item.Title)</p>
+                            <p>Price: $@Html.DisplayFor(modelItem => item.Price)</p>
+
+                            <div class="thumbnail" style="margin:5px">
+                                <img src = "@item.Image" alt="Moustiers Sainte Marie" style="width:200px;height:150px">
+                                @*<img src="http://www.medweb.ru/upload/enarticles/photo_6316.jpg" alt="Moustiers Sainte Marie" style="width:200px;height:150px">*@
+                            </div>
+
+                        </div>
+                    }
+                </div>
+            </div>
+</div>
+
+<br />
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("Index",
+    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+
+<script>
+    $(document).ready(function () {
+        $('[data-toggle="popover"]').popover();
+    });
+
+
+    $(window).scroll(function () {
+        $(".slideanim").each(function () {
+            var pos = $(this).offset().top;
+
+
+            var winTop = $(window).scrollTop();
+            if (pos < winTop + 130) {
+                $(this).addClass("slide");
+            }
+        });
+    });
+
+
+</script>
